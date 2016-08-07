@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Мурат Кудайнетов](https://up.htmlacademy.ru/javascript/6/user/34609).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Катревич](https://htmlacademy.ru/profile/id189351).
 
 ---
 
