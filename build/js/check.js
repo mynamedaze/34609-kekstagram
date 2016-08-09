@@ -17,12 +17,12 @@ function getMessage(a, b) {
   }
   if (Array.isArray(a) && Array.isArray(b)) {
     var artifactsSquare = 0;
-    if (a.length >= b.length) {
+    if (a.length <= b.length) {
       for (var j = 0; j <a.length; j++) {
         artifactsSquare = artifactsSquare + a[j] * b[j];
       }
     }
-    if (a.length < b.length) {
+    if (a.length > b.length) {
       for (j = 0; j <b.length; j++) {
         artifactsSquare = artifactsSquare + a[j] * b[j];
       }
