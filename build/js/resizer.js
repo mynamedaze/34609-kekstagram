@@ -91,7 +91,7 @@
       // Толщина линии.
       this._ctx.lineWidth = 6;
       // Цвет обводки.
-      this._ctx.strokeStyle = '#ffe753';
+      this._ctx.strokeStyle = 'rgba(0,0,0,0)';
       // Размер штрихов. Первый элемент массива задает длину штриха, второй
       // расстояние между соседними штрихами.
       this._ctx.setLineDash([15, 10]);
@@ -119,6 +119,25 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2,
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
+      //  == Отрисовка кастомных рамок из точек ==
+      for (var i = 0; i < this._resizeConstraint.side; i += 12) {
+        this._ctx.beginPath();
+        this._ctx.fillStyle = '#ffe753';
+        this._ctx.arc( (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2*Math.PI );
+        this._ctx.arc( -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth/2, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2*Math.PI );
+        this._ctx.fill();
+        this._ctx.closePath();
+      }
+      for (var i = 0; i < this._resizeConstraint.side; i += 12) {
+        this._ctx.beginPath();
+        this._ctx.fillStyle = '#ffe753';
+        this._ctx.arc( -(this._resizeConstraint.side) / 2  + i, (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, 3, 0, 2*Math.PI );
+        this._ctx.arc( -(this._resizeConstraint.side) / 2 + i, -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth / 2, 3, 0, 2*Math.PI );
+        this._ctx.fill();
+        this._ctx.closePath();
+      }
+
+      // == Отрисовка оверлея ==
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
       this._ctx.beginPath();
       this._ctx.rect(-(this._container.width / 2), -(this._container.height / 2), this._container.width, this._container.height);
@@ -128,6 +147,7 @@
       this._ctx.lineTo((-this._resizeConstraint.side / 2) - this._ctx.lineWidth, (this._resizeConstraint.side / 2) - (this._ctx.lineWidth / 2));
       this._ctx.closePath();
 
+      //== Отрисовка размеров картинки ==
       this._ctx.fill('evenodd');
       this._ctx.fillStyle = '#FFF';
       this._ctx.textAlign = 'center';
