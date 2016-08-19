@@ -123,16 +123,16 @@
       for (var i = 0; i < this._resizeConstraint.side; i += 12) {
         this._ctx.beginPath();
         this._ctx.fillStyle = '#ffe753';
-        this._ctx.arc( (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2*Math.PI );
-        this._ctx.arc( -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth/2, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2*Math.PI );
+        this._ctx.arc( (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2 * Math.PI );
+        this._ctx.arc( -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth / 2, -(this._resizeConstraint.side) / 2 + i, 3, 0, 2 * Math.PI );
         this._ctx.fill();
         this._ctx.closePath();
       }
-      for (var i = 0; i < this._resizeConstraint.side; i += 12) {
+      for (i = 0; i < this._resizeConstraint.side; i += 12) {
         this._ctx.beginPath();
         this._ctx.fillStyle = '#ffe753';
-        this._ctx.arc( -(this._resizeConstraint.side) / 2  + i, (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, 3, 0, 2*Math.PI );
-        this._ctx.arc( -(this._resizeConstraint.side) / 2 + i, -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth / 2, 3, 0, 2*Math.PI );
+        this._ctx.arc( -(this._resizeConstraint.side) / 2 + i, (this._resizeConstraint.side) / 2 - this._ctx.lineWidth, 3, 0, 2 * Math.PI );
+        this._ctx.arc( -(this._resizeConstraint.side) / 2 + i, -(this._resizeConstraint.side) / 2 - this._ctx.lineWidth / 2, 3, 0, 2 * Math.PI );
         this._ctx.fill();
         this._ctx.closePath();
       }
