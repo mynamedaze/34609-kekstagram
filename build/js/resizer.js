@@ -120,6 +120,7 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
       //  == Отрисовка кастомных рамок из точек ==
+      /*
       for (var i = 0; i < this._resizeConstraint.side; i += 12) {
         this._ctx.beginPath();
         this._ctx.fillStyle = '#ffe753';
@@ -136,7 +137,7 @@
         this._ctx.fill();
         this._ctx.closePath();
       }
-
+       */
       // == Отрисовка оверлея ==
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
       this._ctx.beginPath();
@@ -153,6 +154,33 @@
       this._ctx.textAlign = 'center';
       this._ctx.font = '15px Tahoma';
       this._ctx.fillText(this._image.naturalWidth + ' x ' + this._image.naturalWidth, 0, (-this._resizeConstraint.side / 2) - (this._ctx.lineWidth * 2));
+
+      //== Отрисовка ромбовидной границы ==
+      this._ctx.lineWidth = 3;
+      this._ctx.strokeStyle = '#ffe753';
+      this._ctx.lineDashOffset = 0;
+      this._ctx.setLineDash([0, 0]);
+      for (var i = 0; i < this._resizeConstraint.side; i += 12) {
+        this._ctx.beginPath();
+        this._ctx.moveTo(-this._resizeConstraint.side / 2 + i, -this._resizeConstraint.side / 2);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 6, -this._resizeConstraint.side / 2 - 6);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 12, -this._resizeConstraint.side / 2);
+        this._ctx.stroke();
+        this._ctx.beginPath();
+        this._ctx.moveTo(-this._resizeConstraint.side / 2 + i, this._resizeConstraint.side / 2);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 6, this._resizeConstraint.side / 2 - 6);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 12, this._resizeConstraint.side / 2);
+        this._ctx.stroke();
+        this._ctx.beginPath();
+        this._ctx.moveTo(-this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 - 6, -this._resizeConstraint.side / 2 + i + 6);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 12);
+        this._ctx.stroke();
+        this._ctx.moveTo(this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i);
+        this._ctx.lineTo(this._resizeConstraint.side / 2 - 6, -this._resizeConstraint.side / 2 + i + 6);
+        this._ctx.lineTo(this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 12);
+        this._ctx.stroke();
+      }
 
 
       // Восстановление состояния канваса, которое было до вызова ctx.save
