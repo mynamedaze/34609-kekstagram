@@ -160,25 +160,25 @@
       this._ctx.strokeStyle = '#ffe753';
       this._ctx.lineDashOffset = 0;
       this._ctx.setLineDash([0, 0]);
-      for (var i = 0; i < this._resizeConstraint.side; i += 12) {
+      for (var i = 0; i < this._resizeConstraint.side; i += 10) {
         this._ctx.beginPath();
         this._ctx.moveTo(-this._resizeConstraint.side / 2 + i, -this._resizeConstraint.side / 2);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 6, -this._resizeConstraint.side / 2 - 6);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 12, -this._resizeConstraint.side / 2);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 5, -this._resizeConstraint.side / 2 - 5);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 10, -this._resizeConstraint.side / 2);
         this._ctx.stroke();
         this._ctx.beginPath();
         this._ctx.moveTo(-this._resizeConstraint.side / 2 + i, this._resizeConstraint.side / 2);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 6, this._resizeConstraint.side / 2 - 6);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 12, this._resizeConstraint.side / 2);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 5, this._resizeConstraint.side / 2 - 5);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 + i + 10, this._resizeConstraint.side / 2);
         this._ctx.stroke();
         this._ctx.beginPath();
         this._ctx.moveTo(-this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2 - 6, -this._resizeConstraint.side / 2 + i + 6);
-        this._ctx.lineTo(-this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 12);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2 - 5, -this._resizeConstraint.side / 2 + i + 5);
+        this._ctx.lineTo(-this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 10);
         this._ctx.stroke();
         this._ctx.moveTo(this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i);
-        this._ctx.lineTo(this._resizeConstraint.side / 2 - 6, -this._resizeConstraint.side / 2 + i + 6);
-        this._ctx.lineTo(this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 12);
+        this._ctx.lineTo(this._resizeConstraint.side / 2 - 5, -this._resizeConstraint.side / 2 + i + 5);
+        this._ctx.lineTo(this._resizeConstraint.side / 2, -this._resizeConstraint.side / 2 + i + 10);
         this._ctx.stroke();
       }
 
