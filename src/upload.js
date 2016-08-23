@@ -84,8 +84,7 @@
     if ((+x.value + +size.value > +currentResizer._image.naturalWidth) || (+y.value + +size.value > +currentResizer._image.naturalHeight) || (x.value < 0) || (y.value < 0)) {
       fwd.disabled = true;
       return false;
-    }
-    else {
+    } else {
       fwd.disabled = false;
       return true;
     }
