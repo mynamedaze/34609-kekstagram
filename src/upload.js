@@ -45,7 +45,7 @@
   var x = document.querySelector('#resize-x');
   var y = document.querySelector('#resize-y');
   var size = document.querySelector('#resize-size');
-  var fwd = document.getElementById('resize-fwd');
+  var fwd = document.querySelector('#resize-fwd');
   x.min = 0;
   y.min = 0;
   size.min = 0;
