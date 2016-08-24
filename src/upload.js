@@ -46,6 +46,7 @@
   var y = document.querySelector('#resize-y');
   var size = document.querySelector('#resize-size');
   var fwd = document.querySelector('#resize-fwd');
+  fwd.disabled = true;
   x.min = 0;
   y.min = 0;
   size.min = 0;
@@ -102,7 +103,7 @@
    */
   var resizeForm = document.forms['upload-resize'];
 
-  resizeForm.onchange = function() {
+  resizeForm.oninput = function() {
     resizeFormIsValid();
   };
 
