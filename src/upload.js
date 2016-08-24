@@ -81,7 +81,7 @@
    * @return {boolean}
    */
   function resizeFormIsValid() {
-    if ((+x.value + +size.value > +currentResizer._image.naturalWidth) || (+y.value + +size.value > +currentResizer._image.naturalHeight) || (x.value < 0) || (y.value < 0)) {
+    if ((+x.value + +size.value > +currentResizer._image.naturalWidth) || (+y.value + +size.value > +currentResizer._image.naturalHeight) || (x.value < 0) || (y.value < 0) || !(x.value) || !(y.value) || !(size.value)) {
       fwd.disabled = true;
       return false;
     } else {
@@ -101,6 +101,10 @@
    * @type {HTMLFormElement}
    */
   var resizeForm = document.forms['upload-resize'];
+
+  resizeForm.onchange = function() {
+    resizeFormIsValid();
+  };
 
   /**
    * Форма добавления фильтра.
