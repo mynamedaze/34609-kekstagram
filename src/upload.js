@@ -41,6 +41,16 @@
    */
   var currentResizer;
 
+  //==считывание вводимых данных в форму
+  var x = document.querySelector('#resize-x');
+  var y = document.querySelector('#resize-y');
+  var size = document.querySelector('#resize-size');
+  var fwd = document.querySelector('#resize-fwd');
+  fwd.disabled = true;
+  x.min = 0;
+  y.min = 0;
+  size.min = 0;
+
   /**
    * Удаляет текущий объект {@link Resizer}, чтобы создать новый с другим
    * изображением.
@@ -72,7 +82,13 @@
    * @return {boolean}
    */
   function resizeFormIsValid() {
-    return true;
+    if ((+x.value + +size.value > +currentResizer._image.naturalWidth) || (+y.value + +size.value > +currentResizer._image.naturalHeight) || (x.value < 0) || (y.value < 0) || !(x.value) || !(y.value) || !(size.value)) {
+      fwd.disabled = true;
+      return false;
+    } else {
+      fwd.disabled = false;
+      return true;
+    }
   }
 
   /**
@@ -86,6 +102,10 @@
    * @type {HTMLFormElement}
    */
   var resizeForm = document.forms['upload-resize'];
+
+  resizeForm.oninput = function() {
+    resizeFormIsValid();
+  };
 
   /**
    * Форма добавления фильтра.
