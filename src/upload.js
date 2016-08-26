@@ -193,7 +193,7 @@
     var browserCookies = require('browser-cookies');
     var submitButton = document.querySelector('#filter-fwd');
     var elems = filterForm['upload-filter'];
-    var defaultFilter = 'none';
+    var defaultFilter = document.getElementById('upload-filter-none').value;
 
     //== Вычисления по дню рождению Грейс Хоппер==
     var today = new Date();
