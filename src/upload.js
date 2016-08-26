@@ -198,24 +198,23 @@
     //== Вычисления по дню рождению Грейс Хоппер==
     var today = new Date();
     var birthdayGrace = new Date(today.getFullYear(), 11, 9);
-
     //==Считаем количество дней жизни cookie==
 
     if (today >= birthdayGrace) {
-      birthdayGrace = new Date(birthdayGrace, 11, 9);
+      birthdayGrace = new Date(today.getFullYear(), 11, 9);
     } else {
-      birthdayGrace = new Date(birthdayGrace - 1, 11, 9);
+      birthdayGrace = new Date(today.getFullYear() - 1, 11, 9);
     }
+
     var diffDays = (today - birthdayGrace) / 1000 / 60 / 60 / 24;
 
     // Сохраняем в cookies последний выбранный фильтр
     elems.value = browserCookies.get('upload-filter') || defaultFilter;
     submitButton.onclick = function() {
-      document.cookie = 'expires=diffdays';
       browserCookies.set('upload-filter', elems.value, {expires: diffDays});
+      alert(diffDays);
     };
   })();
-
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
    * и обновляет фон.
