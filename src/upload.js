@@ -112,7 +112,6 @@
    * @type {HTMLFormElement}
    */
   var filterForm = document.forms['upload-filter'];
-
   /**
    * @type {HTMLImageElement}
    */
@@ -189,7 +188,32 @@
       }
     }
   };
+  (function() {
+    //==Задание 3.3 Cookies
+    var browserCookies = require('browser-cookies');
+    var submitButton = document.querySelector('#filter-fwd');
+    var elems = filterForm['upload-filter'];
+    var defaultFilter = document.getElementById('upload-filter-none').value;
 
+    //== Вычисления по дню рождению Грейс Хоппер==
+    var today = new Date();
+    var birthdayGrace = new Date(today.getFullYear(), 11, 9);
+    //==Считаем количество дней жизни cookie==
+
+    if (today >= birthdayGrace) {
+      birthdayGrace = new Date(today.getFullYear(), 11, 9);
+    } else {
+      birthdayGrace = new Date(today.getFullYear() - 1, 11, 9);
+    }
+
+    var diffDays = (today - birthdayGrace) / 1000 / 60 / 60 / 24;
+
+    // Сохраняем в cookies последний выбранный фильтр
+    elems.value = browserCookies.get('upload-filter') || defaultFilter;
+    submitButton.onclick = function() {
+      browserCookies.set('upload-filter', elems.value, {expires: diffDays});
+    };
+  })();
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
    * и обновляет фон.
