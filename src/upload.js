@@ -188,7 +188,7 @@
       }
     }
   };
-  (function () {
+  (function() {
     //==Задание 3.3 Cookies
     var browserCookies = require('browser-cookies');
     var submitButton = document.querySelector('#filter-fwd');
