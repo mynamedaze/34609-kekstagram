@@ -211,6 +211,7 @@
     // Сохраняем в cookies последний выбранный фильтр
     elems.value = browserCookies.get('upload-filter') || defaultFilter;
     submitButton.onclick = function() {
+      document.cookie = 'expires=diffdays';
       browserCookies.set('upload-filter', elems.value, {expires: diffDays});
     };
   })();
