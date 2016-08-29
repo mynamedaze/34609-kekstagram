@@ -12,7 +12,7 @@ var createCallback = function(url, callback) {
 
 createCallback('http://localhost:1506/api/pictures?callback=', function(data) {
   data.forEach(function(picture) {
-    getPicture(picture);
+    getTemplateWithPic(picture);
     showFilters();
   });
 });
@@ -29,7 +29,7 @@ var getTemplate = function() {
   return elementToClone.cloneNode(true);
 };
 
-var getPicture = function(picture) {
+var getTemplateWithPic = function(picture) {
   var element = getTemplate();
 
   var img = element.querySelector('img');
