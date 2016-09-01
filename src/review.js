@@ -3,8 +3,8 @@
 var IMAGE_LOAD_TIMEOUT = 3000;
 var templateElement = document.querySelector('template');
 var container = document.querySelector('.container');
-var clsPictureClass = '.picture';
-var clsPicLoadFailClass = 'picture-load-failure';
+var clsPicture = '.picture';
+var clsPicLoadFail = 'picture-load-failure';
 
 module.exports = function(picture) {
 
@@ -12,9 +12,9 @@ module.exports = function(picture) {
   var backgroundLoadTimeout;
 
   if('content' in templateElement) {
-    elementToClone = templateElement.content.querySelector(clsPictureClass);
+    elementToClone = templateElement.content.querySelector(clsPicture);
   } else {
-    elementToClone = templateElement.querySelector(clsPictureClass);
+    elementToClone = templateElement.querySelector(clsPicture);
   }
 
   var element = elementToClone.cloneNode(true);
@@ -22,7 +22,7 @@ module.exports = function(picture) {
 
   backgroundLoadTimeout = setTimeout(function() {
     img.src = '';
-    element.classList.add(clsPicLoadFailClass);
+    element.classList.add(clsPicLoadFail);
   }, IMAGE_LOAD_TIMEOUT);
 
   img.onload = function() {
@@ -30,7 +30,7 @@ module.exports = function(picture) {
   };
 
   img.onerror = function() {
-    element.classList.add(clsPicLoadFailClass);
+    element.classList.add(clsPicLoadFail);
   };
 
   img.src = picture.url;
