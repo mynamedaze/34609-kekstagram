@@ -1,5 +1,6 @@
 'use strict';
 
+
 var loadJSONPData = require('./load');
 var generatePicture = require('./review');
 var filtersForm = document.querySelector('.filters');
