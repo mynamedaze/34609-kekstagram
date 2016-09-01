@@ -8,7 +8,5 @@ loadJSONPData('http://localhost:1506/api/pictures?callback=', function(data) {
   data.forEach(function(picture) {
     generatePicture(picture);
   });
-  if(filtersForm.classList.contains('hidden')) {
     filtersForm.classList.remove('hidden');
-  }
 });
