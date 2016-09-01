@@ -10,5 +10,5 @@ loadJSONPData('http://localhost:1506/api/pictures?callback=', function(data) {
   data.forEach(function(picture) {
     generatePicture(picture);
   });
-    filtersForm.classList.remove('hidden');
+  filtersForm.classList.remove('hidden');
 });
