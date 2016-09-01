@@ -1,6 +1,5 @@
 'use strict';
 
-var filtersForm = document.querySelector('.filters');
 var IMAGE_LOAD_TIMEOUT = 3000;
 var templateElement = document.querySelector('template');
 var container = document.querySelector('.container');
@@ -37,7 +36,3 @@ module.exports = function(picture) {
 
   return element;
 };
-
-if(filtersForm.classList.contains('hidden')) {
-  filtersForm.classList.remove('hidden');
-}
