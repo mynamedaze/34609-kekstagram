@@ -3,6 +3,7 @@
 
 var loadJSONPData = require('./load');
 var generatePicture = require('./review');
+var gallery = require('./gallery');
 var filtersForm = document.querySelector('.filters');
 
 filtersForm.classList.add('hidden');
