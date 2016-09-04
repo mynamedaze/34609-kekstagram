@@ -1,7 +1,7 @@
 'use strict';
 
 var IMAGE_LOAD_TIMEOUT = 3000;
-var gallery = require ('./gallery');
+var gallery = require('./gallery');
 var templateElement = document.querySelector('template');
 var container = document.querySelector('.container');
 var clsPicture = '.picture';
