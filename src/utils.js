@@ -1,7 +1,9 @@
-utils = function () {
+'use strict';
+
+var utils = function() {
 };
 
-utils.showhide = function () {
+utils.showhide = function() {
   window.invisible = 'invisible';
 };
 
