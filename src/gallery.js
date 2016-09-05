@@ -1,7 +1,6 @@
 'use strict';
 
 var utils = require('./utils');
-utils.show();
 
 var Gallery = function() {
   this.pictures = [];
@@ -20,12 +19,12 @@ Gallery.prototype.setPictures = function(pictures) {
 Gallery.prototype.show = function(index) {
   this.setCloseClickHandler();
   this.setNextPicture();
-  this.galleryOverlay.classList.remove(invisible);
+  utils.show(this.galleryOverlay.classList, true);
   this.setActivePicture(index);
 };
 
 Gallery.prototype.hide = function() {
-  this.galleryOverlay.classList.add(invisible);
+  utils.show(this.galleryOverlay.classList, false);
   this.galleryClose.onclick = null;
   this.galleryImage.onclick = null;
 };

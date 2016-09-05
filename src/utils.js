@@ -1,8 +1,12 @@
 'use strict';
 
 var utils = {
-  show: function() {
-    window.invisible = 'invisible';
+  show: function(elem, show) {
+    if (show === true) {
+      return elem.remove('invisible');
+    } else {
+      return elem.add('invisible');
+    }
   }
 };
 
