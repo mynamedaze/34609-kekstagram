@@ -1,8 +1,7 @@
 'use strict';
 
-var modShowHideElem = require('./showhide');
-modShowHideElem();
-var invisible = modInvisible;
+var utils = require('./utils');
+utils.showhide();
 
 var Gallery = function() {
   this.pictures = [];
