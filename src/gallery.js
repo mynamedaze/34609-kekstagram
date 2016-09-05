@@ -1,4 +1,9 @@
 'use strict';
+
+var modShowHideElem = require('./showhide');
+modShowHideElem();
+var invisible = modInvisible;
+
 var Gallery = function() {
   this.pictures = [];
   this.activePicture = 0;
@@ -14,14 +19,14 @@ Gallery.prototype.setPictures = function(pictures) {
 };
 
 Gallery.prototype.show = function(index) {
-  this.getCloseClickHandler();
-  this.getNextPicture();
-  this.galleryOverlay.classList.remove('invisible');
+  this.setCloseClickHandler();
+  this.setNextPicture();
+  this.galleryOverlay.classList.remove(invisible);
   this.setActivePicture(index);
 };
 
 Gallery.prototype.hide = function() {
-  this.galleryOverlay.classList.add('invisible');
+  this.galleryOverlay.classList.add(invisible);
   this.galleryClose.onclick = null;
   this.galleryImage.onclick = null;
 };
@@ -33,14 +38,14 @@ Gallery.prototype.setActivePicture = function(index) {
   this.commentCount.textContent = this.pictures[index].comments;
 };
 
-Gallery.prototype.getCloseClickHandler = function() {
+Gallery.prototype.setCloseClickHandler = function() {
   var self = this;
   this.galleryClose.onclick = function() {
     self.hide();
   };
 };
 
-Gallery.prototype.getNextPicture = function() {
+Gallery.prototype.setNextPicture = function() {
   var self = this;
   this.galleryImage.onclick = function() {
     var nextPicture = (self.activePicture >= (self.pictures.length - 1)) ? 0 : self.activePicture + 1;
