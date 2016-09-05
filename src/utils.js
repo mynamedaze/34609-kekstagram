@@ -1,10 +1,9 @@
 'use strict';
 
-var utils = function() {
-};
-
-utils.showhide = function() {
-  window.invisible = 'invisible';
+var utils = {
+  showhide : function() {
+    window.invisible = 'invisible';
+  }
 };
 
 module.exports = utils;
