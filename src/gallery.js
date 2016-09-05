@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('./utils');
-utils.showhide();
+utils.show();
 
 var Gallery = function() {
   this.pictures = [];

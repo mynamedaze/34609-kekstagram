@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = {
-  showhide : function() {
+  show: function() {
     window.invisible = 'invisible';
   }
 };
