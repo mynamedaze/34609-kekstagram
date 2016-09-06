@@ -4,7 +4,7 @@ var utils = require('./utils');
 
 var Gallery = function() {
   this.pictures = [];
-  this.activePicture = null;
+  this.activePicture = 0;
   this.galleryOverlay = document.querySelector('.gallery-overlay');
   this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
   this.galleryOverlayImage = this.galleryOverlay.querySelector('.gallery-overlay-image');
@@ -17,14 +17,30 @@ Gallery.prototype.setPictures = function(pictures) {
 };
 
 Gallery.prototype.show = function(index) {
+
+  var self = this;
+
+  // Карочи вот тут будут обработчики событий. Используем onclick сразуздесь!
+  // Кнопачка закрыть "Хэ".
+  this.galleryOverlayClose.onclick = function() {
+    self.hide();
+  };
+
+  // Клик по большой фотАчке в оверлее, следующая фотАчка.
+  this.galleryOverlayImage.onclick = function() {
+    var nextPicture = (self.activePicture >= (self.pictures.length - 1)) ? 0 : self.activePicture + 1;
+    self.setActivePicture(nextPicture);
+  };
+
   utils.show(this.galleryOverlay, true);
   this.setActivePicture(index);
-  this.addEventHandler();
 };
 
 Gallery.prototype.hide = function() {
   utils.show(this.galleryOverlay, false);
-  this.removeEventHandler();
+  //Обнуляем как бабушка учила! null!
+  this.galleryOverlayClose.onclick = null;
+  this.galleryOverlayImage.onclick = null;
 };
 
 Gallery.prototype.setActivePicture = function(index) {
@@ -32,31 +48,6 @@ Gallery.prototype.setActivePicture = function(index) {
   this.galleryOverlayImage.src = this.pictures[index].url;
   this.likesCount.textContent = this.pictures[index].likes;
   this.commentCount.textContent = this.pictures[index].comments;
-};
-
-Gallery.prototype.setNextPicture = function() {
-  var self = this;
-  this.galleryOverlayImage.onclick = function() {
-    var nextPicture = (self.activePicture >= (self.pictures.length - 1)) ? 0 : self.activePicture + 1;
-    self.setActivePicture(nextPicture);
-  };
-};
-
-Gallery.prototype.closeGallery = function() {
-  event.preventDefault();
-  this.hide();
-};
-
-Gallery.prototype.addEventHandler = function() {
-  this.closeGallery = this.closeGallery.bind(this);
-  this.setNextPicture = this.setNextPicture.bind(this);
-  this.galleryOverlayClose.addEventListener('click', this.closeGallery);
-  this.galleryOverlayImage.addEventListener('click', this.setNextPicture);
-};
-
-Gallery.prototype.removeEventHandler = function() {
-  this.galleryOverlayClose.removeEventListener('click', this.closeGallery);
-  this.galleryOverlayImage.removeEventListener('click', this.setNextPicture);
 };
 
 module.exports = new Gallery();
