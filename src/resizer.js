@@ -15,7 +15,7 @@
     this._ctx = this._container.getContext('2d');
 
     // Создаем холст только после загрузки изображения.
-    this._image.onload = function() {
+    this._image.onLoad = function() {
       // Размер холста равен размеру загруженного изображения. Это нужно
       // для удобства работы с координатами.
       this._container.width = this._image.naturalWidth;
