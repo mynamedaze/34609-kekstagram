@@ -6,7 +6,7 @@ var utils = require('./utils');
 
 var clsPicLoadFail = 'picture-load-failure';
 
-var indexPictureDOM;
+var indexPictureDOM = 'indexImage';
 
 function createElement(picture, index) {
 
@@ -42,15 +42,12 @@ function createElement(picture, index) {
     element.classList.add(clsPicLoadFail);
   }, IMAGE_LOAD_TIMEOUT);
 
-  //Присвоение изображения после проверки на лимит загрузки
-  if (element.classList.contains(clsPicLoadFail)) {
-    imageContent.src = '';
-  } else {
-    imageContent.src = picture.url;
-  }
+  //Присвоение изображения
+  imageContent.src = picture.url;
 
   // Нумеруем список изображений.
   element.dataset[indexPictureDOM] = index;
+  console.dir(element);
 
   element.querySelector('.picture-comments').textContent = picture.comments;
   element.querySelector('.picture-likes').textContent = picture.likes;
