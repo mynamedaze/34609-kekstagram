@@ -47,7 +47,6 @@ function createElement(picture, index) {
 
   // Нумеруем список изображений.
   element.dataset[indexPictureDOM] = index;
-  console.dir(element);
 
   element.querySelector('.picture-comments').textContent = picture.comments;
   element.querySelector('.picture-likes').textContent = picture.likes;
