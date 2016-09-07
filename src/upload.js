@@ -168,7 +168,7 @@
 
         showMessage(Action.UPLOADING);
 
-        fileReader.onLoad = function() {
+        fileReader.onload = function() {
           cleanupResizer();
 
           currentResizer = new Resizer(fileReader.result);

@@ -6,6 +6,8 @@ var utils = require('./utils');
 
 var clsPicLoadFail = 'picture-load-failure';
 
+var indexPictureDOM;
+
 function createElement(picture, index) {
 
   // Переменная куда помещаем нужный элемент из шаблона.
@@ -33,8 +35,6 @@ function createElement(picture, index) {
     element.classList.add(clsPicLoadFail);
   };
 
-  imageContent.src = picture.url;
-
   // Обработчик лимита ответа от сервера.
   var imgLoadTimeout = setTimeout(function() {
     imageContent.src = '';
@@ -42,8 +42,15 @@ function createElement(picture, index) {
     element.classList.add(clsPicLoadFail);
   }, IMAGE_LOAD_TIMEOUT);
 
+  //Присвоение изображения после проверки на лимит загрузки
+  if (element.classList.contains(clsPicLoadFail)) {
+    imageContent.src = '';
+  } else {
+    imageContent.src = picture.url;
+  }
+
   // Нумеруем список изображений.
-  element.dataset.indeximg = index;
+  element.dataset[indexPictureDOM] = index;
 
   element.querySelector('.picture-comments').textContent = picture.comments;
   element.querySelector('.picture-likes').textContent = picture.likes;
@@ -57,9 +64,9 @@ var Picture = function(picture, index) {
   this.element = createElement(picture, index);
 
   // Добавляем на изображение обработчик клика.
-  this.element.onclick = function(evt) {
-    evt.preventDefault();
-    gallery.show(evt.target.parentElement.dataset.indeximg);
+  this.element.onclick = function(event) {
+    event.preventDefault();
+    gallery.show(event.target.parentElement.dataset[indexPictureDOM]);
   };
 
   // Удаляем обработчики событий.
