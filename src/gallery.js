@@ -44,7 +44,7 @@ Gallery.prototype.hide = function() {
 };
 
 Gallery.prototype.setActivePicture = function(index) {
-  this.activePicture = index;
+  this.activePicture = +index;
   this.galleryOverlayImage.src = this.pictures[index].url;
   this.likesCount.textContent = this.pictures[index].likes;
   this.commentCount.textContent = this.pictures[index].comments;

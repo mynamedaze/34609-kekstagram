@@ -1,50 +1,75 @@
 'use strict';
 
-var IMAGE_LOAD_TIMEOUT = 3000;
+
 var gallery = require('./gallery');
-var templateElement = document.querySelector('template');
-var container = document.querySelector('.container');
-var clsPicture = '.picture';
+var utils = require('./utils');
+
 var clsPicLoadFail = 'picture-load-failure';
 
-module.exports = function(picture, index) {
+var indexPictureDOM = 'indexImage';
 
-  var elementToClone;
-  var backgroundLoadTimeout;
+function createElement(picture, index) {
 
-  if('content' in templateElement) {
-    elementToClone = templateElement.content.querySelector(clsPicture);
-  } else {
-    elementToClone = templateElement.querySelector(clsPicture);
-  }
+  // Переменная куда помещаем нужный элемент из шаблона.
+  var sampleElement = utils.checkForTemplate();
 
-  var element = elementToClone.cloneNode(true);
-  var img = element.querySelector('img');
+  //Лимит на загрузку изображения
+  var IMAGE_LOAD_TIMEOUT = 10000;
 
-  backgroundLoadTimeout = setTimeout(function() {
-    img.src = '';
+  // Клонируем элемент шаблона.
+  var element = sampleElement.cloneNode(true);
+
+  // Создаем новое изображение c использованием конструктора.
+  var imageContent = new Image(182, 182);
+
+  // Обработчик загрузки изображения.
+  imageContent.onload = function() {
+    clearTimeout(imgLoadTimeout);
+
+    // Заменяем текущий 'img' на новый из конструктора.
+    element.replaceChild(imageContent, element.querySelector('img'));
+  };
+
+// Обработчик ошибки сервера.
+  imageContent.onerror = function() {
+    element.classList.add(clsPicLoadFail);
+  };
+
+  // Обработчик лимита ответа от сервера.
+  var imgLoadTimeout = setTimeout(function() {
+    imageContent.src = '';
+
     element.classList.add(clsPicLoadFail);
   }, IMAGE_LOAD_TIMEOUT);
 
-  img.onload = function() {
-    clearTimeout(backgroundLoadTimeout);
-  };
+  //Присвоение изображения
+  imageContent.src = picture.url;
 
-  img.onerror = function() {
-    element.classList.add(clsPicLoadFail);
-  };
+  // Нумеруем список изображений.
+  element.dataset[indexPictureDOM] = index;
 
-  img.src = picture.url;
-  container.appendChild(element);
-
-  onPictureClick(element, index);
+  element.querySelector('.picture-comments').textContent = picture.comments;
+  element.querySelector('.picture-likes').textContent = picture.likes;
 
   return element;
+}
+
+// Конструктор объектов Picture
+var Picture = function(picture, index) {
+  this.picture = picture;
+  this.element = createElement(picture, index);
+
+  // Добавляем на изображение обработчик клика.
+  this.element.onclick = function(event) {
+    event.preventDefault();
+    gallery.show(event.target.parentElement.dataset[indexPictureDOM]);
+  };
+
+  // Удаляем обработчики событий.
+  this.remove = function() {
+    this.element.onclick = null;
+  };
 };
 
-function onPictureClick(element, index) {
-  element.onclick = function(event) {
-    event.preventDefault();
-    gallery.show(index);
-  };
-}
+// Экспортируем из модуля конструктор.
+module.exports = Picture;
