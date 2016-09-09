@@ -16,6 +16,12 @@ Gallery.prototype.setPictures = function(pictures) {
   this.pictures = pictures;
 };
 
+//Очищаем список изображений
+Gallery.prototype.clear = function() {
+  this.pictures = [];
+};
+
+
 Gallery.prototype.show = function(index) {
 
   var self = this;

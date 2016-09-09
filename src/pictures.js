@@ -9,6 +9,7 @@ var PICTURES_LOAD_URL = '/api/pictures';
 var PICTURES_LIMIT = 12;
 var currentPageNumber = 0;
 var currentFilterId = 'filter-popular';
+var allPicturesIsloaded = false;
 
 var filtersForm = document.querySelector('.filters');
 
@@ -17,20 +18,37 @@ filtersForm.classList.add('hidden');
 // Элемент контейнер, куда будем помещать сгенерированные элементы.
 var picturesContainer = document.querySelector('.pictures');
 
-var renderPicture = function(data) {
+var renderPicture = function(pictures) {
+  if (!pictures.length) {
+    allPicturesIsloaded = true;
+    return false;
+  }
   //перебираем изображения и применяею шаблон
-  data.forEach(function(picture, index) {
+  pictures.forEach(function(picture, index) {
     var imageElement = new GeneratePicture(picture, index);
     picturesContainer.appendChild(imageElement.element);
   });
   //подгружем данные в галерею
-  gallery.setPictures(data);
+  gallery.setPictures(pictures);
+
+  return true;
 };
+
+//Чистим список изображений
+function clearPicturesList() {
+  currentPageNumber = 0;
+  picturesContainer.innerHTML = '';
+  allPicturesIsloaded = false;
+  gallery.clear();
+}
 
 //----------------------
 
 // Получаем информацию с сервера
 function getPicturesList(callback) {
+  if (allPicturesIsloaded) {
+    return;
+  }
 
   var from = PICTURES_LIMIT * currentPageNumber;
   var to = from + PICTURES_LIMIT;
@@ -47,7 +65,7 @@ function getPicturesList(callback) {
 
 //добавляем функцию добавления дополнительной партии фоточек для экранов с высоким разрешением
 function getMorePicturesList() {
-  if (containerPicturesListFilled()) {
+  if (containerPicturesListFilled() || allPicturesIsloaded) {
     return;
   }
 
@@ -57,10 +75,10 @@ function getMorePicturesList() {
   });
 }
 
-//Чистим список изображений
-function clearPicturesList() {
-  currentPageNumber = 0;
-  picturesContainer.innerHTML = '';
+//добавляем функцию проверки конца страницы экрана
+function endOfPage() {
+  var footerPosition = document.querySelector('footer').getBoundingClientRect();
+  return footerPosition.top - window.innerHeight < GAP;
 }
 
 //проверяем, заполнено ли свободное экранное место контейнера
@@ -68,12 +86,6 @@ function containerPicturesListFilled() {
   var height = picturesContainer.getBoundingClientRect().height;
 
   return height > window.innerHeight;
-}
-
-//добавляем функцию проверки конца страницы экрана
-function endOfPage() {
-  var footerPosition = document.querySelector('footer').getBoundingClientRect();
-  return footerPosition.top - window.innerHeight < GAP;
 }
 
 // добавляем функцию для обработчика scroll (+кулдаун на прокрутку)
@@ -115,7 +127,11 @@ function onFilterChange() {
   * -догрузка фоток в незаполненную область
   */
 
-getPicturesList(function() {
+getPicturesList(function(pictures) {
+
+  if (!renderPicture(pictures)) {
+    return;
+  }
 
   onFilterChange();
   onWindowScroll();
