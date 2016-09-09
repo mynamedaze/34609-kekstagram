@@ -45,7 +45,7 @@ Gallery.prototype.setActivePicture = function(index) {
 Gallery.prototype.show = function(index) {
   this.addEventsListeners();
 
-  this.galleryOverlay.classList.remove('invisible');
+  utils.show(this.galleryOverlay, true);
 
   this.setActivePicture(index);
 };
@@ -53,7 +53,7 @@ Gallery.prototype.show = function(index) {
 //Скрываем галерею
 
 Gallery.prototype.hide = function() {
-  this.galleryOverlay.classList.add('invisible');
+  utils.show(this.galleryOverlay, false);
 
   this.removeEventsListeners();
 };
