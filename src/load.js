@@ -1,11 +1,14 @@
 'use strict';
 
-module.exports = function(url, callback) {
-  var scriptEl = document.createElement('script');
-  scriptEl.src = url + 'JSONPCallback';
-  document.body.appendChild(scriptEl);
+module.exports = function(url, params, callback) {
 
-  window.JSONPCallback = function(data) {
-    callback(data);
+  var xhr = new XMLHttpRequest();
+
+  xhr.onload = function (evt) {
+    var loadedData = JSON.parse(evt.target.response);
+    callback(loadedData);
   };
+
+  xhr.open('GET', url + '?from=' + params.from + '&to=' + params.to + '&filter=' + params.filter);
+  xhr.send();
 };

@@ -60,9 +60,9 @@ var Picture = function(picture, index) {
   this.element = createElement(picture, index);
 
   // Добавляем на изображение обработчик клика.
-  this.element.onclick = function(event) {
-    event.preventDefault();
-    gallery.show(event.target.parentElement.dataset[indexPictureDOM]);
+  this.element.onclick = function(evt) {
+    evt.preventDefault();
+    gallery.show(evt.target.parentElement.dataset[indexPictureDOM]);
   };
 
   // Удаляем обработчики событий.
