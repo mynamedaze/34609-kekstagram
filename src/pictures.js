@@ -23,11 +23,16 @@ var renderPicture = function(pictures) {
     allPicturesIsloaded = true;
     return false;
   }
-  //перебираем изображения и применяею шаблон
-  pictures.forEach(function(picture, index) {
-    var imageElement = new GeneratePicture(picture, index);
+
+  var nextIndexPicture = gallery.getPicturesCount();
+
+  //перебираем изображения и применяю шаблон
+  pictures.forEach(function(picture) {
+    var imageElement = new GeneratePicture(picture, nextIndexPicture);
     picturesContainer.appendChild(imageElement.element);
+    nextIndexPicture++;
   });
+
   //подгружем данные в галерею
   gallery.setPictures(pictures);
 
@@ -41,8 +46,6 @@ function clearPicturesList() {
   allPicturesIsloaded = false;
   gallery.clear();
 }
-
-//----------------------
 
 // Получаем информацию с сервера
 function getPicturesList(callback) {
