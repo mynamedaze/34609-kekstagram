@@ -86,9 +86,9 @@ function onWindowScroll() {
   window.addEventListener('scroll', function() {
     if (endOfPage()) {
       clearTimeout(scrollCoolDown);
-      scrollCoolDown = setTimeout(function () {
+      scrollCoolDown = setTimeout(function() {
         getPicturesList(renderPicture);
-      }, 100)
+      }, 100);
     }
   });
 }

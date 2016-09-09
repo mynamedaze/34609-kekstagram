@@ -4,7 +4,7 @@ module.exports = function(url, params, callback) {
 
   var xhr = new XMLHttpRequest();
 
-  xhr.onload = function (evt) {
+  xhr.onload = function(evt) {
     var loadedData = JSON.parse(evt.target.response);
     callback(loadedData);
   };
