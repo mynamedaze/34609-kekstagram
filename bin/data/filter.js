@@ -2,6 +2,12 @@
 
 module.exports = function(list, filterID) {
   switch (filterID) {
+    case 'filter-popular':
+      list = list.sort(function(a, b) {
+        return b.likes - a.likes;
+      });
+      break;
+
     case 'filter-new':
       var currentDate = Date.now();
       var threeDaysInMilliseconds = 3 * 24 * 60 * 60 * 1000;

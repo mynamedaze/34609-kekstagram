@@ -4,7 +4,6 @@
 var load = require('./load');
 var GeneratePicture = require('./picture');
 var gallery = require('./gallery');
-var GAP = 500;
 var PICTURES_LOAD_URL = '/api/pictures';
 var PICTURES_LIMIT = 12;
 var currentPageNumber = 0;
@@ -18,7 +17,7 @@ filtersForm.classList.add('hidden');
 // Элемент контейнер, куда будем помещать сгенерированные элементы.
 var picturesContainer = document.querySelector('.pictures');
 
-var renderPicture = function(pictures) {
+var renderPictures = function(pictures) {
   if (!pictures.length) {
     allPicturesIsloaded = true;
     return false;
@@ -34,7 +33,7 @@ var renderPicture = function(pictures) {
   });
 
   //подгружем данные в галерею
-  gallery.setPictures(pictures);
+  gallery.addPictures(pictures);
 
   return true;
 };
@@ -62,8 +61,6 @@ function getPicturesList(callback) {
     filter: currentFilterId
   }, callback);
   currentPageNumber++;
-  console.log(currentPageNumber);
-  console.log(currentFilterId);
 }
 
 //добавляем функцию добавления дополнительной партии фоточек для экранов с высоким разрешением
@@ -73,43 +70,37 @@ function getMorePicturesList() {
   }
 
   getPicturesList(function(pictures) {
-    renderPicture(pictures);
-    setTimeout(getMorePicturesList, 50);
+    renderPictures(pictures);
+    getMorePicturesList();
   });
-}
-
-//добавляем функцию проверки конца страницы экрана
-function endOfPage() {
-  var footerPosition = document.querySelector('footer').getBoundingClientRect();
-  return footerPosition.top - window.innerHeight < GAP;
 }
 
 //проверяем, заполнено ли свободное экранное место контейнера
 function containerPicturesListFilled() {
   var height = picturesContainer.getBoundingClientRect().height;
 
-  return height > window.innerHeight;
+  return height > document.documentElement.clientHeight;
 }
 
 // добавляем функцию для обработчика scroll (+кулдаун на прокрутку)
-function onWindowScroll() {
+function isWindowScrolled() {
 
   //кулдаун на считывание скролла
   var scrollCoolDown;
 
   // сам обработчик scroll
   window.addEventListener('scroll', function() {
-    if (endOfPage()) {
+    if (containerPicturesListFilled()) {
       clearTimeout(scrollCoolDown);
       scrollCoolDown = setTimeout(function() {
-        getPicturesList(renderPicture);
+        getPicturesList(renderPictures);
       }, 100);
     }
   });
 }
 
 //Добавляет обработчик изменения фильтра
-function onFilterChange() {
+function isFilterChanged() {
   filtersForm.addEventListener('click', function(evt) {
     if (evt.target.tagName !== 'LABEL') {
       return;
@@ -132,13 +123,13 @@ function onFilterChange() {
 
 getPicturesList(function(pictures) {
 
-  if (!renderPicture(pictures)) {
+  if (!renderPictures(pictures)) {
     return;
   }
 
-  onFilterChange();
-  onWindowScroll();
+  filtersForm.classList.remove('hidden');
+  isFilterChanged();
+  isWindowScrolled();
   getMorePicturesList();
+  filtersForm.classList.remove('hidden');
 });
-
-filtersForm.classList.remove('hidden');

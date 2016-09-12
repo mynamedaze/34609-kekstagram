@@ -14,7 +14,7 @@ var Gallery = function() {
 };
 
 //Устанавливаем список изображений для просмотра
-Gallery.prototype.setPictures = function(pictures) {
+Gallery.prototype.addPictures = function(pictures) {
   this.pictures = this.pictures.concat(pictures);
 };
 
@@ -60,8 +60,8 @@ Gallery.prototype.hide = function() {
 
 //Добавляем обработчики событий
 Gallery.prototype.addEventsListeners = function() {
-  this.onButtonCloseClick();
-  this.onElementClick();
+  this.galleryOverlayClose.onclick = this.hide.bind(this);
+  this.galleryOverlayImage.onclick = this.goToNextPicture.bind(this);
 };
 
 //Удаляеем обработчики событий
@@ -70,25 +70,11 @@ Gallery.prototype.removeEventsListeners = function() {
   this.galleryOverlayImage.onclick = null;
 };
 
-//Добавляем обработчик клика по кнопке закрыть
-
-Gallery.prototype.onButtonCloseClick = function() {
-  var self = this;
-
-  this.galleryOverlayClose.onclick = function() {
-    self.hide();
-  };
-};
-
 //Добавляем обработчик клика на элемент галереи
-Gallery.prototype.onElementClick = function() {
-  var self = this;
+Gallery.prototype.goToNextPicture = function() {
 
-  this.galleryOverlayImage.onclick = function() {
-    var nextIndexPicture = (self.activePicture >= (self.pictures.length - 1)) ? 0 : (self.activePicture + 1);
-
-    self.setActivePicture(nextIndexPicture);
-  };
+    var nextIndexPicture = (this.activePicture >= (this.pictures.length - 1)) ? 0 : (this.activePicture + 1);
+    this.setActivePicture(nextIndexPicture);
 };
 
 module.exports = new Gallery();

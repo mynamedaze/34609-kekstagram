@@ -31,6 +31,8 @@ function createPicture(picture) {
     img.src = picture.url;
     img.width = IMAGE_WIDTH;
     img.height = IMAGE_HEIGHT;
+    element.querySelector('.picture-comments').textContent = picture.comments;
+    element.querySelector('.picture-likes').textContent = picture.likes;
   });
 
   return element;
@@ -59,37 +61,22 @@ function loadPicture(url, callback) {
   image.src = url;
 }
 
-//Конструктор создания объекта для работы с изображением
-function Picture(picture, index) {
+// Конструктор объектов Picture
+var Picture = function(picture, index) {
   this.data = picture;
   this.data.index = index;
   this.element = createPicture(picture);
-
-  this.addEventsListeners();
-}
-
-//Добавляем обработчики событий
-Picture.prototype.addEventsListeners = function() {
-  this.onClick();
-};
-
-//Назначает обработчик клика по изображению
-Picture.prototype.onClick = function() {
-  var self = this;
-
+  // Добавляем на изображение обработчик клика.
   this.element.onclick = function(event) {
+
     event.preventDefault();
+    gallery.show(this.data.index);
+  }.bind(this);
 
-    gallery.show(self.data.index);
-
-    event.stopPropagation();
+  // Удаляем обработчики событий.
+  this.remove = function() {
+    this.element.onclick = null;
   };
 };
-
-//Удаляем обработчики событий
-Picture.prototype.remove = function() {
-  this.element.onclick = null;
-};
-
 
 module.exports = Picture;
