@@ -73,8 +73,8 @@ Gallery.prototype.removeEventsListeners = function() {
 //Добавляем обработчик клика на элемент галереи
 Gallery.prototype.goToNextPicture = function() {
 
-    var nextIndexPicture = (this.activePicture >= (this.pictures.length - 1)) ? 0 : (this.activePicture + 1);
-    this.setActivePicture(nextIndexPicture);
+  var nextIndexPicture = (this.activePicture >= (this.pictures.length - 1)) ? 0 : (this.activePicture + 1);
+  this.setActivePicture(nextIndexPicture);
 };
 
 module.exports = new Gallery();

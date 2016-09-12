@@ -10,11 +10,11 @@ module.exports = function(url, params, callback) {
       var loadedData = JSON.parse(evt.target.response);
       callback(loadedData);
     } catch (err) {
-      console.warn('JSON parse error!')
+      console.warn('JSON parse error!');
     }
   };
 
-  xhr.onerror = function () {
+  xhr.onerror = function() {
     console.error('Data has not been loaded');
   };
 
