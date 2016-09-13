@@ -100,18 +100,16 @@ function isWindowScrolled() {
 }
 
 //Добавляет обработчик изменения фильтра
-function isFilterChanged() {
-  filtersForm.addEventListener('click', function(evt) {
-    if (evt.target.tagName !== 'LABEL') {
-      return;
-    }
+var filterChange = function(evt) {
+  if (evt.target.tagName !== 'LABEL') {
+    return;
+  }
 
-    currentFilterId = evt.target.getAttribute('for');
+  currentFilterId = evt.target.getAttribute('for');
 
-    clearPicturesList();
-    getMorePicturesList();
-  }, true);
-}
+  clearPicturesList();
+  getMorePicturesList();
+};
 
 /**
   *иии теперь запускаем всё:
@@ -128,8 +126,7 @@ getPicturesList(function(pictures) {
   }
 
   filtersForm.classList.remove('hidden');
-  isFilterChanged();
+  filtersForm.addEventListener('click', filterChange, true);
   isWindowScrolled();
   getMorePicturesList();
-  filtersForm.classList.remove('hidden');
 });

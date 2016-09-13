@@ -4,10 +4,10 @@ var IMAGE_WIDTH = 182;
 var IMAGE_HEIGHT = 182;
 var TIMEOUT_IMAGE_LOAD = 10000;
 var gallery = require('./gallery');
-var pictureTemplate = createPictureTemplate();
+var pictureTemplate = getPictureTemplate();
 
 //Создаем шаблон блока с изображением
-function createPictureTemplate() {
+function getPictureTemplate() {
   var template = document.getElementById('picture-template');
 
   if ('content' in template) {

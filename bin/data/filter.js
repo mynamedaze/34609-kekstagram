@@ -3,9 +3,7 @@
 module.exports = function(list, filterID) {
   switch (filterID) {
     case 'filter-popular':
-      list = list.sort(function(a, b) {
-        return b.likes - a.likes;
-      });
+      return list;
       break;
 
     case 'filter-new':
