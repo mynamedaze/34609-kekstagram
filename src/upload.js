@@ -41,16 +41,6 @@
    */
   var currentResizer;
 
-  //==считывание вводимых данных в форму
-  var x = document.querySelector('#resize-x');
-  var y = document.querySelector('#resize-y');
-  var size = document.querySelector('#resize-size');
-  var fwd = document.querySelector('#resize-fwd');
-  fwd.disabled = true;
-  x.min = 0;
-  y.min = 0;
-  size.min = 0;
-
   /**
    * Удаляет текущий объект {@link Resizer}, чтобы создать новый с другим
    * изображением.
@@ -82,6 +72,15 @@
    * @return {boolean}
    */
   function resizeFormIsValid() {
+    var x = document.querySelector('#resize-x');
+    var y = document.querySelector('#resize-y');
+    var size = document.querySelector('#resize-size');
+    var fwd = document.querySelector('#resize-fwd');
+    fwd.disabled = true;
+    x.min = 0;
+    y.min = 0;
+    size.min = 0;
+
     if ((+x.value + +size.value > +currentResizer._image.naturalWidth) || (+y.value + +size.value > +currentResizer._image.naturalHeight) || (x.value < 0) || (y.value < 0) || !(x.value) || !(y.value) || !(size.value)) {
       fwd.disabled = true;
       return false;
@@ -213,6 +212,13 @@
     submitButton.onclick = function() {
       browserCookies.set('upload-filter', elems.value, {expires: diffDays});
     };
+
+    /**submitButton.addEventListener('click', function() {
+      browserCookies.set('upload-filter', elems.value, {expires: diffDays});
+      }
+    );
+    */
+
   })();
   /**
    * Обработка сброса формы кадрирования. Возвращает в начальное состояние
@@ -313,8 +319,28 @@
 
     resizeForm.x.value = constraint.x;
     resizeForm.y.value = constraint.y;
-    resizeForm.side.value = constraint.side;
+    resizeForm.size.value = constraint.side;
   });
+  /**
+   * Обработчик изменений в форме кадрирования.
+   */
+  resizeForm.addEventListener('change', function() {
+    if (!resizeFormIsValid()) {
+      return;
+    }
+
+    var x = parseInt(resizeForm.x.value, 10);
+    var y = parseInt(resizeForm.y.value, 10);
+    var size = parseInt(resizeForm.size.value, 10);
+    var constraint = currentResizer.getConstraint();
+
+    x = isNaN(x) ? constraint.x : x;
+    y = isNaN(y) ? constraint.y : y;
+    size = isNaN(size) ? constraint.side : size;
+
+    currentResizer.setConstraint(x, y, size);
+  });
+
 
   cleanupResizer();
   updateBackground();

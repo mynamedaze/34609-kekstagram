@@ -8,7 +8,7 @@ var PICTURES_LOAD_URL = '/api/pictures';
 var PICTURES_LIMIT = 12;
 var currentPageNumber = 0;
 var currentFilterId = 'filter-popular';
-var allPicturesIsloaded = false;
+var picturesIsNoLeft = false;
 
 var filtersForm = document.querySelector('.filters');
 
@@ -19,7 +19,7 @@ var picturesContainer = document.querySelector('.pictures');
 
 var renderPictures = function(pictures) {
   if (!pictures.length) {
-    allPicturesIsloaded = true;
+    picturesIsNoLeft = true;
     return false;
   }
 
@@ -42,13 +42,13 @@ var renderPictures = function(pictures) {
 function clearPicturesList() {
   currentPageNumber = 0;
   picturesContainer.innerHTML = '';
-  allPicturesIsloaded = false;
+  picturesIsNoLeft = false;
   gallery.clear();
 }
 
 // Получаем информацию с сервера
 function getPicturesList(callback) {
-  if (allPicturesIsloaded) {
+  if (picturesIsNoLeft) {
     return;
   }
 
@@ -65,10 +65,10 @@ function getPicturesList(callback) {
 
 //добавляем функцию добавления дополнительной партии фоточек для экранов с высоким разрешением
 function getMorePicturesList() {
-  if (containerPicturesListFilled() || allPicturesIsloaded) {
+  if (containerPicturesListFilled() || picturesIsNoLeft) {
+    filtersForm.classList.remove('hidden');
     return;
   }
-
   getPicturesList(function(pictures) {
     renderPictures(pictures);
     getMorePicturesList();
@@ -120,13 +120,12 @@ var filterChange = function(evt) {
   */
 
 getPicturesList(function(pictures) {
-
   if (!renderPictures(pictures)) {
     return;
   }
-
-  filtersForm.addEventListener('click', filterChange, true);
-  isWindowScrolled();
-  getMorePicturesList();
-  filtersForm.classList.remove('hidden');
+  if (pictures.length) {
+    filtersForm.addEventListener('click', filterChange, true);
+    getMorePicturesList();
+    isWindowScrolled();
+  }
 });
