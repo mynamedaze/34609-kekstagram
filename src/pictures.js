@@ -128,4 +128,5 @@ getPicturesList(function(pictures) {
     getMorePicturesList();
     isWindowScrolled();
   }
+
 });
