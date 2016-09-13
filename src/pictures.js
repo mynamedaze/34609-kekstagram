@@ -125,8 +125,8 @@ getPicturesList(function(pictures) {
     return;
   }
 
-  filtersForm.classList.remove('hidden');
   filtersForm.addEventListener('click', filterChange, true);
   isWindowScrolled();
   getMorePicturesList();
+  filtersForm.classList.remove('hidden');
 });

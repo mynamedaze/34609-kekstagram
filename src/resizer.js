@@ -91,7 +91,7 @@
       // Толщина линии.
       this._ctx.lineWidth = 6;
       // Цвет обводки.
-      this._ctx.strokeStyle = 'rgba(0,0,0,0)';
+      this._ctx.strokeStyle = '#ffe753';
       // Размер штрихов. Первый элемент массива задает длину штриха, второй
       // расстояние между соседними штрихами.
       this._ctx.setLineDash([15, 10]);
@@ -120,6 +120,7 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
       //  == Отрисовка кастомных рамок из точек ==
+      /*
       for (var i = 0; i < this._resizeConstraint.side; i += 12) {
         this._ctx.beginPath();
         this._ctx.fillStyle = '#ffe753';
@@ -136,6 +137,7 @@
         this._ctx.fill();
         this._ctx.closePath();
       }
+      */
 
       // == Отрисовка оверлея ==
       this._ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';

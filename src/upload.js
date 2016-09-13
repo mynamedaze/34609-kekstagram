@@ -305,6 +305,17 @@
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
   };
 
+  /** обработчик события 'resizerchange' на объект window, который будет брать значения смещения
+   * и размера кадра из объекта resizer и добавлять их в форму.
+   */
+  window.addEventListener('resizerchange', function() {
+    var constraint = currentResizer.getConstraint();
+
+    resizeForm.x.value = constraint.x;
+    resizeForm.y.value = constraint.y;
+    resizeForm.side.value = constraint.side;
+  });
+
   cleanupResizer();
   updateBackground();
 })();
