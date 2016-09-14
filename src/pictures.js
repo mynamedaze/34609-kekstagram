@@ -2,6 +2,7 @@
 
 // Подгружаю внешние модули
 var load = require('./load');
+var utils = require('./utils');
 var GeneratePicture = require('./picture');
 var gallery = require('./gallery');
 var PICTURES_LOAD_URL = '/api/pictures';
@@ -85,18 +86,15 @@ function containerPicturesListFilled() {
 // добавляем функцию для обработчика scroll (+кулдаун на прокрутку)
 function isWindowScrolled() {
 
-  //кулдаун на считывание скролла
-  var scrollCoolDown;
+  //описываем догрузку фотографий при скролле
+  var optimizedScroll = utils.throttle(function() {
+      if (containerPicturesListFilled()) {
+        getPicturesList(renderPictures);
+      }
+  }, 1000);
 
   // сам обработчик scroll
-  window.addEventListener('scroll', function() {
-    if (containerPicturesListFilled()) {
-      clearTimeout(scrollCoolDown);
-      scrollCoolDown = setTimeout(function() {
-        getPicturesList(renderPictures);
-      }, 100);
-    }
-  });
+  window.addEventListener('scroll', optimizedScroll);
 }
 
 //Добавляет обработчик изменения фильтра
