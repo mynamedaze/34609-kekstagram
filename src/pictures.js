@@ -88,9 +88,9 @@ function isWindowScrolled() {
 
   //описываем догрузку фотографий при скролле
   var optimizedScroll = utils.throttle(function() {
-      if (containerPicturesListFilled()) {
-        getPicturesList(renderPictures);
-      }
+    if (containerPicturesListFilled()) {
+      getPicturesList(renderPictures);
+    }
   }, 1000);
 
   // сам обработчик scroll
