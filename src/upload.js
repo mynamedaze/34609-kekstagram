@@ -211,8 +211,7 @@
     elems.value = browserCookies.get('upload-filter') || defaultFilter;
     submitButton.addEventListener('click', function() {
       browserCookies.set('upload-filter', elems.value, {expires: diffDays});
-      }
-    );
+    });
 
   })();
   /**
