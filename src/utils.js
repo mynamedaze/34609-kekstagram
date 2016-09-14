@@ -8,34 +8,18 @@ var utils = {
       return elem.classList.add('invisible');
     }
   },
-  throttle: function(func, ms) {
+  throttle: function throttle(fn, time) {
 
-    var isThrottled = false,
-      savedArgs,
-      savedThis;
+    var startTime = new Date();
 
-    function wrapper() {
+    return function() {
+      var coolDownTime = new Date();
 
-      if (isThrottled) { // (2)
-        savedArgs = arguments;
-        savedThis = this;
-        return;
+      if (coolDownTime - startTime >= time) {
+        fn();
+        startTime = new Date();
       }
-
-      func.apply(this, arguments); // (1)
-
-      isThrottled = true;
-
-      setTimeout(function() {
-        isThrottled = false; // (3)
-        if (savedArgs) {
-          wrapper.apply(savedThis, savedArgs);
-          savedArgs = savedThis = null;
-        }
-      }, ms);
-    }
-
-    return wrapper;
+    };
   }
 };
 

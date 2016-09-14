@@ -91,7 +91,7 @@ function isWindowScrolled() {
     if (containerPicturesListFilled()) {
       getPicturesList(renderPictures);
     }
-  }, 1000);
+  }, 100);
 
   // сам обработчик scroll
   window.addEventListener('scroll', optimizedScroll);
