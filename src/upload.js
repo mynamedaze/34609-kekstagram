@@ -7,6 +7,9 @@
 
 'use strict';
 
+var selectedimageFilter = 'selected-filter';
+var imageFiltered = 'selected-image-filter';
+
 (function() {
   /** @enum {string} */
   var FileType = {
@@ -115,7 +118,7 @@
    * @type {HTMLImageElement}
    */
   var filterImage = filterForm.querySelector('.filter-image-preview');
-  filterImage.classList.add('filter-' + localStorage.getItem('upload-filter'));
+  filterImage.classList.add(localStorage.getItem(imageFiltered));
 
   /**
    * @type {HTMLElement}
@@ -195,9 +198,9 @@
     var defaultFilter = document.getElementById('upload-filter-none').value;
 
     // Сохраняем в LocalStorage последний выбранный фильтр
-    elems.value = localStorage.getItem('upload-filter') || defaultFilter;
+    elems.value = localStorage.getItem(selectedimageFilter) || defaultFilter;
     submitButton.addEventListener('click', function() {
-      localStorage.setItem('upload-filter', elems.value);
+      localStorage.setItem(selectedimageFilter, elems.value);
     });
 
   })();
@@ -289,6 +292,7 @@
     // убрать предыдущий примененный класс. Для этого нужно или запоминать его
     // состояние или просто перезаписывать.
     filterImage.className = 'filter-image-preview ' + filterMap[selectedFilter];
+    localStorage.setItem(imageFiltered, filterMap[selectedFilter]);
   });
 
   /** обработчик события 'resizerchange' на объект window, который будет брать значения смещения
