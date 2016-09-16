@@ -115,6 +115,7 @@
    * @type {HTMLImageElement}
    */
   var filterImage = filterForm.querySelector('.filter-image-preview');
+  filterImage.classList.add('filter-' + localStorage.getItem('upload-filter'));
 
   /**
    * @type {HTMLElement}
@@ -187,30 +188,16 @@
       }
     }
   });
-  //==Задание 3.3 Cookies
+  //==Задание 8.1 LocalStorage
   (function() {
-    var browserCookies = require('browser-cookies');
     var submitButton = document.querySelector('#filter-fwd');
     var elems = filterForm['upload-filter'];
     var defaultFilter = document.getElementById('upload-filter-none').value;
 
-    //== Вычисления по дню рождению Грейс Хоппер==
-    var today = new Date();
-    var birthdayGrace = new Date(today.getFullYear(), 11, 9);
-    //==Считаем количество дней жизни cookie==
-
-    if (today >= birthdayGrace) {
-      birthdayGrace = new Date(today.getFullYear(), 11, 9);
-    } else {
-      birthdayGrace = new Date(today.getFullYear() - 1, 11, 9);
-    }
-
-    var diffDays = (today - birthdayGrace) / 1000 / 60 / 60 / 24;
-
-    // Сохраняем в cookies последний выбранный фильтр
-    elems.value = browserCookies.get('upload-filter') || defaultFilter;
+    // Сохраняем в LocalStorage последний выбранный фильтр
+    elems.value = localStorage.getItem('upload-filter') || defaultFilter;
     submitButton.addEventListener('click', function() {
-      browserCookies.set('upload-filter', elems.value, {expires: diffDays});
+      localStorage.setItem('upload-filter', elems.value);
     });
 
   })();
@@ -294,7 +281,6 @@
         'marvin': 'filter-marvin'
       };
     }
-
     var selectedFilter = [].filter.call(filterForm['upload-filter'], function(item) {
       return item.checked;
     })[0].value;
