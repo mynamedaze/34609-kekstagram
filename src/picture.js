@@ -66,17 +66,19 @@ var Picture = function(picture, index) {
   this.data = picture;
   this.data.index = index;
   this.element = createPicture(picture);
+  this.onClick = this.onClick.bind(this);
   // Добавляем на изображение обработчик клика.
-  this.element.onclick = function(event) {
-
-    event.preventDefault();
-    gallery.show(this.data.index);
-  }.bind(this);
+  this.element.addEventListener('click', this.onClick);
 
   // Удаляем обработчики событий.
   this.remove = function() {
-    this.element.onclick = null;
+    this.element.removeEventListener('click', this.onClick);
   };
+};
+Picture.prototype.onClick = function(event) {
+
+  event.preventDefault();
+  gallery.show(this.data.index);
 };
 
 module.exports = Picture;
