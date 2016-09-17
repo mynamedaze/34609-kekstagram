@@ -33,7 +33,6 @@ Gallery.prototype.setActivePicture = function(index) {
   if (!this.pictures[index]) {
     return;
   }
-
   this.activePicture = index;
   this.galleryOverlayImage.src = this.pictures[index].url;
   this.likesCount.textContent = this.pictures[index].likes;
