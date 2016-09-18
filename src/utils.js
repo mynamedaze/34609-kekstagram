@@ -21,7 +21,7 @@ var utils = {
       }
     };
   },
-  inherit: function (child, parent) {
+  inherit: function(child, parent) {
     var EmptyConstructor = function() {};
     EmptyConstructor.prototype = parent.prototype;
     child.prototype = new EmptyConstructor();
