@@ -5,7 +5,6 @@ var utils = require('./utils');
 var Gallery = function() {
   this.pictures = [];
   this.activePicture = 0;
-
   this.galleryOverlay = document.querySelector('.gallery-overlay');
   this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
   this.galleryOverlayImage = this.galleryOverlay.querySelector('.gallery-overlay-image');

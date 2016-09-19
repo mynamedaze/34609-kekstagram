@@ -3,7 +3,7 @@
 // Подгружаю внешние модули
 var load = require('./load');
 var utils = require('./utils');
-var GeneratePicture = require('./picture');
+var Picture = require('./picture');
 var gallery = require('./gallery');
 var PICTURES_LOAD_URL = '/api/pictures';
 var PICTURES_LIMIT = 12;
@@ -28,7 +28,7 @@ var renderPictures = function(pictures) {
 
   //перебираем изображения и применяю шаблон
   pictures.forEach(function(picture) {
-    var imageElement = new GeneratePicture(picture, nextIndexPicture);
+    var imageElement = new Picture(picture, nextIndexPicture);
     picturesContainer.appendChild(imageElement.element);
     nextIndexPicture++;
   });
