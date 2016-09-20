@@ -65,7 +65,9 @@ function loadPicture(url, callback) {
 
 // Конструктор объектов Picture
 var Picture = function(pictureData) {
-  BaseComponent.call(this, createPicture(pictureData));
+  BaseComponent.call(this, {'picture': createPicture(pictureData)});
+  this.elements = {'picture': gallery.show(this.pictureData.getIndex())};
+  this.addEventsListeners();
 
   this.comments = this.element.querySelector('.picture-comments');
   this.likes = this.element.querySelector('.picture-likes');
@@ -75,6 +77,7 @@ var Picture = function(pictureData) {
   this.renderCommentsCount();
   this.renderLikesCount();
 };
+
 
 utils.inherit(Picture, BaseComponent);
 
@@ -91,7 +94,6 @@ Picture.prototype.renderLikesCount = function() {
 Picture.prototype.onClick = function(event) {
 
   event.preventDefault();
-  gallery.show(this.pictureData.getIndex());
 };
 
 module.exports = Picture;

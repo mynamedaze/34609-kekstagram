@@ -21,10 +21,9 @@ BaseComponent.prototype.remove = function() {
 
 //Добавляем обработчики событий
 BaseComponent.prototype.addEventsListeners = function() {
-  this._pKeys.forEach(function () {
+  this._pKeys.forEach(function(key) {
     var currentOnClick = this.elements[key];
-
-    if ( typeof(currentOnClick.onClick) == "function" ) {
+    if ( typeof (currentOnClick.onClick) === 'function' ) {
       currentOnClick.onClick = currentOnClick.onClick.bind(this);
       this._elements[key].addEventListener('click', currentOnClick.onClick);
     }
