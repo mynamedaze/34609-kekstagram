@@ -1,26 +1,34 @@
 'use strict';
 
-function BaseComponent(element) {
-  this.element = element;
+function BaseComponent(elements) {
+  this._elements = elements;
+  this.elements = {};
+  this._pKeys = Object.keys(this.elements);
 }
 
 //Добавляем элемент в указанную ноду на странице
 BaseComponent.prototype.appendTo = function(parent) {
-  parent.appendChild(this.element);
+  parent.appendChild(this.elements);
   this.addEventsListeners();
 };
 
 
 //Удаляем элемент со cтраницы
 BaseComponent.prototype.remove = function() {
-  this.element.removeEventListener('click', this.onClick);
-  this.element.parentNode.removeChild(this.element);
+  this.elements.removeEventListener('click', this.onClick);
+  this.elements.parentNode.removeChild(this.elements);
 };
 
 //Добавляем обработчики событий
 BaseComponent.prototype.addEventsListeners = function() {
-  this.onClick = this.onClick.bind(this);
-  this.element.addEventListener('click', this.onClick);
+  this._pKeys.forEach(function () {
+    var currentOnClick = this.elements[key];
+
+    if ( typeof(currentOnClick.onClick) == "function" ) {
+      currentOnClick.onClick = currentOnClick.onClick.bind(this);
+      this._elements[key].addEventListener('click', currentOnClick.onClick);
+    }
+  });
 };
 
 //Обработчик клика по компоненту

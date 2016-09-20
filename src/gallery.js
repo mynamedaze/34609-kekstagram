@@ -7,11 +7,13 @@ var Gallery = function() {
   this.pictures = [];
   this.activePicture = 0;
   this.galleryOverlay = document.querySelector('.gallery-overlay');
-  this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
+  //this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
   this.likesCount = this.galleryOverlay.querySelector('.likes-count');
   this.commentCount = this.galleryOverlay.querySelector('.comments-count');
 
-  BaseComponent.call(this, document.querySelector('.gallery-overlay-image'));
+  BaseComponent.call(this, {'galleryImage': document.querySelector('.gallery-overlay-image'), 'galleryClose': this.galleryOverlay.querySelector('.gallery-overlay-close')});
+  this.elements = {'galleryImage': this.goToNextPicture, 'galleryClose': this.hide};
+  this.addEventsListeners();
 };
 
 utils.inherit(Gallery, BaseComponent);
@@ -57,12 +59,6 @@ Gallery.prototype.hide = function() {
   utils.show(this.galleryOverlay, false);
 
   this.removeEventsListeners();
-};
-
-//Добавляем обработчики событий
-Gallery.prototype.addEventsListeners = function() {
-  this.galleryOverlayClose.onclick = this.hide.bind(this);
-  this.element.onclick = this.goToNextPicture.bind(this);
 };
 
 //Удаляеем обработчики событий
