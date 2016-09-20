@@ -1,16 +1,20 @@
 'use strict';
 
 var utils = require('./utils');
+var BaseComponent = require('./base-component');
 
 var Gallery = function() {
   this.pictures = [];
   this.activePicture = 0;
   this.galleryOverlay = document.querySelector('.gallery-overlay');
   this.galleryOverlayClose = this.galleryOverlay.querySelector('.gallery-overlay-close');
-  this.galleryOverlayImage = this.galleryOverlay.querySelector('.gallery-overlay-image');
   this.likesCount = this.galleryOverlay.querySelector('.likes-count');
   this.commentCount = this.galleryOverlay.querySelector('.comments-count');
+
+  BaseComponent.call(this, document.querySelector('.gallery-overlay-image'));
 };
+
+utils.inherit(Gallery, BaseComponent);
 
 //Устанавливаем список изображений для просмотра
 Gallery.prototype.addPictures = function(pictures) {
@@ -33,7 +37,7 @@ Gallery.prototype.setActivePicture = function(index) {
     return;
   }
   this.activePicture = index;
-  this.galleryOverlayImage.src = this.pictures[index].url;
+  this.element.src = this.pictures[index].url;
   this.likesCount.textContent = this.pictures[index].likes;
   this.commentCount.textContent = this.pictures[index].comments;
 };
@@ -58,13 +62,13 @@ Gallery.prototype.hide = function() {
 //Добавляем обработчики событий
 Gallery.prototype.addEventsListeners = function() {
   this.galleryOverlayClose.onclick = this.hide.bind(this);
-  this.galleryOverlayImage.onclick = this.goToNextPicture.bind(this);
+  this.element.onclick = this.goToNextPicture.bind(this);
 };
 
 //Удаляеем обработчики событий
 Gallery.prototype.removeEventsListeners = function() {
   this.galleryOverlayClose.onclick = null;
-  this.galleryOverlayImage.onclick = null;
+  this.element.onclick = null;
 };
 
 //Добавляем обработчик клика на элемент галереи

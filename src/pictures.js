@@ -28,10 +28,10 @@ var renderPictures = function(pictures) {
   var nextIndexPicture = gallery.getPicturesCount();
 
   //перебираем изображения и применяю шаблон
-  pictures.forEach(function(picture) {
-    var pictureData = new PictureData(picture, nextIndexPicture);
-    var imageElement = new Picture(pictureData);
-    picturesContainer.appendChild(imageElement.element);
+  pictures.forEach(function(item) {
+    var pictureData = new PictureData(item, nextIndexPicture);
+    var picture = new Picture(pictureData);
+    picture.appendTo(picturesContainer);
     nextIndexPicture++;
   });
 

@@ -4,6 +4,8 @@ var IMAGE_WIDTH = 182;
 var IMAGE_HEIGHT = 182;
 var TIMEOUT_IMAGE_LOAD = 10000;
 var gallery = require('./gallery');
+var BaseComponent = require('./base-component');
+var utils = require('./utils');
 var pictureTemplate = getPictureTemplate();
 
 //Создаем шаблон блока с изображением
@@ -63,25 +65,27 @@ function loadPicture(url, callback) {
 
 // Конструктор объектов Picture
 var Picture = function(pictureData) {
-  this.element = createPicture(pictureData);
+  BaseComponent.call(this, createPicture(pictureData));
+
+  this.comments = this.element.querySelector('.picture-comments');
+  this.likes = this.element.querySelector('.picture-likes');
+
   this.pictureData = pictureData;
-  this.addEventsListeners();
-  // Удаляем обработчики событий.
-  this.remove = function() {
-    this.removeEventsListeners();
-  };
+
+  this.renderCommentsCount();
+  this.renderLikesCount();
 };
 
-// Обработчик событий
-Picture.prototype.addEventsListeners = function() {
-  this.onClick = this.onClick.bind(this);
-  // Добавляем на изображение обработчик клика.
-  this.element.addEventListener('click', this.onClick);
+utils.inherit(Picture, BaseComponent);
+
+//Отрисовываем количество комментариев
+Picture.prototype.renderCommentsCount = function() {
+  this.comments.textContent = this.pictureData.getCommentsCount();
 };
 
-//Удаляем обработчики событий
-Picture.prototype.removeEventsListeners = function() {
-  this.element.removeEventListener('click', this.onClick);
+//Отрисовываем количество лайков
+Picture.prototype.renderLikesCount = function() {
+  this.likes.textContent = this.pictureData.getLikesCount();
 };
 
 Picture.prototype.onClick = function(event) {
