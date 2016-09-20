@@ -25,6 +25,7 @@ var utils = {
     var EmptyConstructor = function() {};
     EmptyConstructor.prototype = parent.prototype;
     child.prototype = new EmptyConstructor();
+    child.prototype.constructor = child;
   }
 };
 
