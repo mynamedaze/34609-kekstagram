@@ -18,21 +18,21 @@ function getPictureTemplate() {
 }
 
 //Создаем DOM-элемент для указанного изображения
-function createPicture(picture) {
+function createPicture(pictureData) {
   var element = pictureTemplate.cloneNode(true);
 
-  loadPicture(picture.url, function(isLoaded) {
+  loadPicture(pictureData.getUrl(), function(isLoaded) {
     if (!isLoaded) {
       element.classList.add('picture-load-failure');
       return;
     }
 
     var img = element.querySelector('img');
-    img.src = picture.url;
+    img.src = pictureData.getUrl();
     img.width = IMAGE_WIDTH;
     img.height = IMAGE_HEIGHT;
-    element.querySelector('.picture-comments').textContent = picture.comments;
-    element.querySelector('.picture-likes').textContent = picture.likes;
+    element.querySelector('.picture-comments').textContent = pictureData.getCommentsCount();
+    element.querySelector('.picture-likes').textContent = pictureData.getLikesCount();
   });
 
   return element;
@@ -62,10 +62,9 @@ function loadPicture(url, callback) {
 }
 
 // Конструктор объектов Picture
-var Picture = function(picture, index) {
-  this.data = picture;
-  this.data.index = index;
-  this.element = createPicture(picture);
+var Picture = function(pictureData) {
+  this.element = createPicture(pictureData);
+  this.pictureData = pictureData;
   this.addEventsListeners();
   // Удаляем обработчики событий.
   this.remove = function() {
@@ -88,7 +87,7 @@ Picture.prototype.removeEventsListeners = function() {
 Picture.prototype.onClick = function(event) {
 
   event.preventDefault();
-  gallery.show(this.data.index);
+  gallery.show(this.pictureData.getIndex());
 };
 
 module.exports = Picture;

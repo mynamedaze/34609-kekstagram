@@ -4,6 +4,7 @@
 var load = require('./load');
 var utils = require('./utils');
 var Picture = require('./picture');
+var PictureData = require('./picture-data');
 var gallery = require('./gallery');
 var PICTURES_LOAD_URL = '/api/pictures';
 var PICTURES_LIMIT = 12;
@@ -28,7 +29,8 @@ var renderPictures = function(pictures) {
 
   //перебираем изображения и применяю шаблон
   pictures.forEach(function(picture) {
-    var imageElement = new Picture(picture, nextIndexPicture);
+    var pictureData = new PictureData(picture, nextIndexPicture);
+    var imageElement = new Picture(pictureData);
     picturesContainer.appendChild(imageElement.element);
     nextIndexPicture++;
   });
